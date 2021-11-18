@@ -1,4 +1,5 @@
 import 'package:makeyoup/data/models/product_color_dto.dart';
+import 'package:makeyoup/domain/models/product_model.dart';
 
 class ProductDTO {
   final String id;
@@ -29,4 +30,23 @@ class ProductDTO {
         productColors = (map['product_colors'] as List)
             .map((e) => ProductColorDTO.fromAPI(e))
             .toList();
+}
+
+extension ProductMapper on ProductDTO {
+  ProductModel toModel() {
+    return ProductModel(
+      id: id,
+      name: name,
+      description: description,
+      brand: brand,
+      price: price,
+      priceSign: priceSign,
+      imageLink: imageLink,
+      productLink: productLink,
+      rating: rating,
+      category: category,
+      productType: productType,
+      productColors: productColors.map((e) => e.toModel()).toList(),
+    );
+  }
 }
